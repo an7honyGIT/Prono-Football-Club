@@ -1,0 +1,31 @@
+<md-dialog flex style="z-index:100;">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Actualités</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>     
+      <div class="md-dialog-content" layout="row" layout-align='center center'>
+        <div flex="33">
+          <img src="images/mascotte.png" style="width: 100%; height: auto;">
+        </div>
+        <div class="md-padding" flex>
+          <h1 class="md-display-2">Les choses sérieuses commencent !!</h1>
+          <p>La phase de poule est terminée, <b>les huitièmes sont là !</b> Pour l'occasion, l'équipe de Prono FC a travaillé d'arrache-pied. Elle vous a concocté quelques nouveautés.</p>
+          <p>Vous pouvez par exemple voir l'état de forme des joueurs dans le classement, miser "quitte ou double sur un match", voir la liste des matchs d'une équipe ...</p>
+          <p>Les règles de calcul de points ont été adaptées à cette nouvelle phase de la compétition. Pensez à y jetter un oeil dans la rubrique "Informations"</p>
+        </div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button class="md-accent md-raised" ng-click="answer()">
+        J'ai compris
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

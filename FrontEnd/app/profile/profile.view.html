@@ -1,0 +1,43 @@
+<md-content class="md-padding" layout="column" layout-align="center center" style="width: 100%">
+    <div ng-if="vm.dataLoading" layout="row" style="margin-top: 20px;" layout-sm="column" layout-align="space-around">
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <p ng-if="!vm.dataLoading && vm.error"> Impossible de modifier le profil pour le moment</p>
+    <form ng-if="!vm.dataLoading && !vm.error" name="formRegister" role="form" style="width: 60%">
+        <div class="form-group" ng-class="{ 'has-error': formRegister.username.$dirty && formRegister.username.$error.required }">
+            <md-input-container class="md-icon-float md-block">
+              <!-- Use floating label instead of placeholder -->
+              <label>Identifiant</label>
+              <md-icon class="material-icons">face</md-icon>
+              <input ng-keyup="$event.keyCode == 13 && vm.createAccount()" required ng-model="vm.user.username" type="text">
+            </md-input-container>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': formRegister.picture.$dirty && formRegister.picture.$error.required }">
+            <md-input-container class="md-icon-float md-block">
+              <label>Avatar (url)</label>
+              <md-icon class="material-icons">image</md-icon>
+              <input required ng-keyup="$event.keyCode == 13 && vm.createAccount()" ng-model="vm.user.picture" type="text">
+            </md-input-container>
+        </div>
+        <div layout="row" layout-wrap flex layout-align="center center">
+          <div  
+            ng-repeat='image in vm.images'
+            class="parent" 
+            layout="row">
+            <md-card ng-click="vm.select(image)" flex style="border:2px solid;" ng-style="{'border-color':(vm.isSelected(image)? 'rgb(68,138,255)': '#FFFFFF')}">
+              <md-card-title>
+                <md-card-title-media>
+                  <div class="md-media-sm card-media" layout>
+                    <img src="{{image}}" class="md-avatar" />
+                  </div>
+                </md-card-title-media>
+              </md-card-title>
+            </md-card>
+          </div>
+        </div>
+        <!---->
+        <div class="form-actions" layout="column">
+            <md-button ng-click="vm.saveChanges()" ng-disabled="formRegister.$invalid || vm.dataLoading" class="md-accent md-raised">Enregistrer</md-button>
+        </div>
+    </form>
+</md-content>

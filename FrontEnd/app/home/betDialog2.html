@@ -1,0 +1,43 @@
+<md-dialog flex>
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Score du match</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <h4>Calcul des points : </h4>
+        <p style="margin:0px">+ 1 : l'un des scores est correct / + 3 : l'équipe remporte le match / +7 : la différence de buts est correcte / + 10 : le score est exact</p>
+      </div>
+      
+      <div class="md-dialog-content" layout="column">
+        <div layout="column">
+          <p style="margin:0px"><b>{{match.team1.name}} :</b></p>
+          <md-input-container class="md-icon-float md-icon-right md-block">
+            <input ng-model="team1" type="number" step="1">
+          </md-input-container>
+        </div>
+
+        <div layout="column">
+          <p style="margin:0px"><b>{{match.team2.name}} : </b></p>
+          <md-input-container class="md-icon-float md-icon-right md-block">
+            <input ng-model="team2" type="number" step="1">
+          </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()">
+       Annuler
+      </md-button>
+      <md-button ng-click="answer()">
+        Valider
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -1,0 +1,60 @@
+
+
+<md-content class="md-padding" layout="row" layout-wrap flex style="width: 100%">
+    <div ng-if="vm.dataLoading" layout="row" style="margin-top: 20px;width: 100%" layout-sm="column" layout-align="space-around" layout-align="center center" align="center" flex>
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+    <div  
+          ng-if="!vm.dataLoading"
+          ng-repeat='match in vm.matches'
+          class="parent" flex-gt-md= "50"
+          flex-lg="50"
+          flex-gt-lg="33"
+          flex-sm= "50"
+          flex-gt-sm="50"
+          flex="100" layout="row">
+      <md-card flex>
+        <md-card-title>
+          Match du {{vm.displayDate(match.date)}}
+        </md-card-title>
+        <md-card-content layout="column" >
+          <div layout="row" layout-align="center center">
+            <div flex="40" align="center">
+              <img hide-xs style="width: 100px;height: 100px;" src="{{match.team1.picture}}" />
+              <img hide-gt-xs style="width: 75px;height: 75px;" src="{{match.team1.picture}}" />
+            </div>
+            <div flex align="center">
+              <p style="font-size: 22px;"><b>VS.</b></p>
+            </div>
+            <div flex="40" align="center">
+              <img hide-xs style="width: 100px;height: 100px;" src="{{match.team2.picture}}" />
+              <img hide-gt-xs style="width: 75px;height: 75px;" src="{{match.team2.picture}}" />
+            </div>
+          </div>
+          <div layout="row" layout-align="center center">
+            <div flex="40" align="center">
+              <p><b>{{match.team1.name}}</b></p>
+            </div>
+            <div flex layout-align="center center">
+              
+            </div>
+            <div flex="40" align="center">
+              <p><b>{{match.team2.name}}</b></p>
+            </div>
+          </div>
+          <div layout="row" layout-align="center center">
+            <div flex="40" align="center">
+              <p style="font-size: 28px;"><b>{{(match.score1!==null)? match.score1:"--"}}</b></p>
+            </div>
+            <div flex align="center">
+              <p>Score</p>
+            </div>
+            <div flex="40" align="center">
+              <p style="font-size: 28px;"><b>{{(match.score2!==null)? match.score2:"--"}}</b></p>
+            </div>
+          </div>
+        </md-card-content>
+      </md-card>
+    </div>
+    <p ng-if="vm.matches.length === 0 && !vm.dataLoading">Aucun match trouvé</p>
+  </md-content>

@@ -1,0 +1,110 @@
+<md-content class="md-padding" layout="column" layout-wrap flex style="width: 100%">
+	<div>
+		<p style="size:28px;"><b>Matchs du jour :</b></p>
+	</div>
+	<div ng-if="vm.dataLoading" layout="row" style="margin-top: 20px;width: 100%" layout-sm="column" layout-align="space-around" layout-align="center center" align="center" flex>
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+	<md-content class="md-padding" layout="row" layout-wrap flex style="width: 100%">
+	<div  
+          ng-if="!vm.dataLoading"
+          ng-repeat='match in vm.matches'
+          class="parent" flex-gt-md= "50"
+          flex-lg="50"
+          flex-gt-lg="33"
+          flex-sm= "50"
+          flex-gt-sm="50"
+          flex="100" layout="row">
+      <md-card flex md-truncate>
+        <md-card-title>
+          Match du {{vm.displayDate(match.date)}}
+        </md-card-title>
+        <md-card-content layout="column" md-truncate>
+          <div layout="row" layout-align="center center">
+            <div flex="40" align="center" ng-click="vm.goToTeam(match.team1.teamId)" class="hoverable">
+              <img hide-xs style="width: 100px;height: 100px;" src="{{match.team1.picture}}" />
+              <img hide-gt-xs style="width: 75px;height: 75px;" src="{{match.team1.picture}}" />
+            </div>
+            <div flex align="center">
+              <p style="font-size: 22px;"><b>VS.</b></p>
+            </div>
+            <div flex="40" align="center" ng-click="vm.goToTeam(match.team2.teamId)" class="hoverable">
+              <img hide-xs style="width: 100px;height: 100px;" src="{{match.team2.picture}}"/>
+              <img hide-gt-xs style="width: 75px;height: 75px;" src="{{match.team2.picture}}" />
+            </div>
+          </div>
+          <div layout="row" layout-align="center center">
+            <div flex="40" align="center">
+              <p><b>{{match.team1.name}}</b></p>
+            </div>
+            <div flex layout-align="center center">
+              
+            </div>
+            <div flex="40" align="center">
+              <p><b>{{match.team2.name}}</b></p>
+            </div>
+          </div>
+          <div layout="row" layout-align="center center">
+            <div flex="40" align="center">
+              <p style="font-size: 28px;"><b>{{(vm.getBet(match).score1!==undefined)? vm.getBet(match).score1:"--"}}</b></p>
+            </div>
+            <div flex align="center">
+              <p>Prono.</p>
+            </div>
+            <div flex="40" align="center">
+              <p style="font-size: 28px;"><b>{{(vm.getBet(match).score2!==undefined)? vm.getBet(match).score2:"--"}}</b></p>
+            </div>
+          </div>
+          <div layout="row" layout-align="center center">
+            <div flex="40" align="center">
+              <p style="font-size: 28px;"><b>{{(match.score1!==null)? match.score1:"--"}}</b></p>
+            </div>
+            <div flex align="center">
+              <p>Score</p>
+            </div>
+            <div flex="40" align="center">
+              <p style="font-size: 28px;"><b>{{(match.score2!==null)? match.score2:"--"}}</b></p>
+            </div>
+          </div>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="center center">
+          <md-button class="md-raised md-accent" flex ng-if="vm.isBettable(match)" ng-click="vm.showBetDialog($event, match, $index)">Parier</md-button>
+          <md-button  class="md-raised md-primary"  flex ng-if="!vm.isBettable(match)" ng-click="vm.showAllBetsDialog($event, match)" ng-style="{'background-color': vm.getColor(match)}" style="color: black;">{{vm.getPoints(match)}}</md-button>
+        </md-card-actions>
+      </md-card>
+    </div>
+	</md-content>
+    <p ng-if="vm.matches.length === 0 && !vm.dataLoading">Aucun match trouvé</p>
+	<div>
+		<p style="size:28px;"><b>Joueurs du moment :</b></p>
+	</div>
+	<div ng-if="vm.playerLoading" layout="row" style="margin-top: 20px;width: 100%" layout-sm="column" layout-align="space-around" layout-align="center center" align="center" flex>
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+	<md-content ng-if="!vm.playerLoading && vm.users.length!==0" class="md-padding" layout="row" layout-wrap flex style="width: 100%">
+		<div  
+	          ng-if="!vm.playerLoading"
+	          ng-repeat='user in vm.users'
+	          class="parent hoverable" flex-gt-md= "50"
+	          flex-lg="50"
+	          flex-gt-lg="33"
+	          flex-sm= "50"
+	          flex-gt-sm="50"
+	          flex="100" layout="row">
+	      	<md-card flex md-truncate class="ripplelink" ng-click="vm.showUserBets($event, user)">
+			  <md-card-title>
+			    <md-card-title-media>
+			      <div class="md-media-sm card-media" layout>
+			        <img src="{{user.picture}}" class="md-avatar" />
+			      </div>
+			    </md-card-title-media>
+			    <md-card-title-text style="padding: 10px;" md-truncate>
+			      <span class="md-headline">{{user.rank}}. {{ user.name }}</span>
+			      <span class="md-subhead description">Points : {{user.score}} / Nombre de paris : {{user.nbbet}}</span>
+			    </md-card-title-text>
+			  </md-card-title>
+			</md-card>
+	    </div>
+	</md-content>
+	<p ng-if="vm.users.length === 0 && !vm.playerLoading">Aucun joueur trouvé</p>
+</md-content>

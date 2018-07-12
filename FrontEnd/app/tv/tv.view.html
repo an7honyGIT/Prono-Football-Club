@@ -1,0 +1,166 @@
+
+  
+<md-content class="md-padding" layout="column" layout-fill flex style="width: 100%">
+	<div>
+		<p style="size:28px;"><b>Matchs du jour :</b></p>
+	</div>
+	<div ng-if="vm.dataLoading" layout="row" style="margin-top: 20px;width: 100%" layout-sm="column" layout-align="space-around" layout-align="center center" align="center" flex>
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+	<md-content class="md-padding" layout="row" layout-wrap flex style="width: 100%">
+	<div  
+          ng-if="!vm.dataLoading"
+          ng-repeat='match in vm.matches'
+          class="parent" flex-gt-md= "50"
+          flex-lg="50"
+          flex-gt-lg="33"
+          flex-sm= "50"
+          flex-gt-sm="50"
+          flex="100" layout="row">
+      <md-card flex>
+        <md-card-title>
+          Match du {{vm.displayDate(match.date)}}
+        </md-card-title>
+        <md-card-content layout="column" >
+          <div layout="row" layout-align="center center">
+            <div flex="40" align="center">
+              <img hide-xs style="width: 100px;height: 100px;" src="{{match.team1.picture}}" />
+              <img hide-gt-xs style="width: 75px;height: 75px;" src="{{match.team1.picture}}" />
+            </div>
+            <div flex align="center">
+              <p style="font-size: 22px;"><b>VS.</b></p>
+            </div>
+            <div flex="40" align="center">
+              <img hide-xs style="width: 100px;height: 100px;" src="{{match.team2.picture}}" />
+              <img hide-gt-xs style="width: 75px;height: 75px;" src="{{match.team2.picture}}" />
+            </div>
+          </div>
+          <div layout="row" layout-align="center center">
+            <div flex="40" align="center">
+              <p><b>{{match.team1.name}}</b></p>
+            </div>
+            <div flex layout-align="center center">
+              
+            </div>
+            <div flex="40" align="center">
+              <p><b>{{match.team2.name}}</b></p>
+            </div>
+          </div>
+          <div layout="row" layout-align="center center">
+            <div flex="40" align="center">
+              <p style="font-size: 28px;"><b>{{(match.score1!==null)? match.score1:"--"}}</b></p>
+            </div>
+            <div flex align="center">
+              <p>Score</p>
+            </div>
+            <div flex="40" align="center">
+              <p style="font-size: 28px;"><b>{{(match.score2!==null)? match.score2:"--"}}</b></p>
+            </div>
+          </div>
+        </md-card-content>
+      </md-card>
+    </div>
+	</md-content>
+    <p ng-if="vm.matches.length === 0 && !vm.dataLoading">Aucun match trouvé</p>
+	<div>
+		<p style="size:28px;"><b>Derniers pronostics :</b></p>
+	</div>
+	<div ng-if="vm.betLoading" layout="row" style="margin-top: 20px;width: 100%" layout-sm="column" layout-align="space-around" layout-align="center center" align="center" flex>
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+	<md-content ng-if="!vm.betLoading && vm.bets.length!==0" class="md-padding" layout="row" layout-wrap flex style="width: 100%">
+		<div  
+	          ng-if="!vm.betLoading"
+	          ng-repeat='bet in vm.bets'
+	          class="parent" flex-gt-md= "50"
+	          flex-lg="50"
+	          flex-gt-lg="33"
+	          flex-sm= "50"
+	          flex-gt-sm="50"
+	          flex="100" layout="row">
+	      	<md-card flex md-truncate>
+			  <md-card-title>
+			    <md-card-title-media>
+			      <div class="md-media-sm card-media" layout-align="center center">
+			        <img src="{{bet.user[0].picture}}" class="md-avatar" style="width: 50px;height: 50px;" />
+			      </div>
+			    </md-card-title-media>
+			    <md-card-title-text style="padding: 10px;" md-truncate>
+			      <span class="md-headline" style="font-size:20px;"><i>{{ bet.user[0].username }}</i></span>
+			    </md-card-title-text>
+			  </md-card-title>
+        <md-card-content layout="column" md-truncate>
+          <div layout="row" layout-align="center center">
+            <div flex="40" align="center">
+              <img hide-xs style="width: 50px;height: 50px;" src="{{bet.match[0].team1.picture}}" />
+              <img hide-gt-xs style="width: 75px;height: 75px;" src="{{bet.match[0].team1.picture}}" />
+            </div>
+            <div flex align="center">
+              <div layout="row" layout-align="center center">
+                <p style="font-size: 28px;"><b>{{(bet.score1!==null)? bet.score1:"--"}}</b></p>
+                <p style="font-size: 22px;"><b>-</b></p>
+                <p style="font-size: 28px;"><b>{{(bet.score2!==null)? bet.score2:"--"}}</b></p>
+              </div>
+            </div>
+            <div flex="40" align="center">
+              <img hide-xs style="width: 50px;height: 50px;" src="{{bet.match[0].team2.picture}}" />
+              <img hide-gt-xs style="width: 75px;height: 75px;" src="{{bet.match[0].team2.picture}}" />
+            </div>
+          </div>
+          <div layout="row" layout-align="center center">
+            <div flex="40" align="center">
+              <p><b>{{bet.match[0].team1.name}}</b></p>
+            </div>
+            <div flex layout-align="center center">
+              
+            </div>
+            <div flex="40" align="center">
+              <p><b>{{bet.match[0].team2.name}}</b></p>
+            </div>
+          </div>
+          <div layout="row" layout-align="center center">
+            <div flex="40" align="center">
+              
+            </div>
+            <div flex="40" align="center">
+              
+            </div>
+          </div>
+        </md-card-content>
+			</md-card>
+	    </div>
+	</md-content>
+	<p ng-if="vm.users.length === 0 && !vm.playerLoading">Aucun joueur trouvé</p>
+  <div>
+    <p style="size:28px;"><b>Meilleurs joueurs :</b></p>
+  </div>
+  <div ng-if="vm.playerLoading" layout="row" style="margin-top: 20px;width: 100%" layout-sm="column" layout-align="space-around" layout-align="center center" align="center" flex>
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+  <md-content ng-if="!vm.playerLoading && vm.users.length!==0" class="md-padding" layout="row" layout-wrap flex style="width: 100%">
+    <div  
+            ng-if="!vm.playerLoading"
+            ng-repeat='user in vm.users'
+            class="parent" flex-gt-md= "50"
+            flex-lg="50"
+            flex-gt-lg="20"
+            flex-sm= "50"
+            flex-gt-sm="50"
+            flex="100" layout="row">
+          <md-card flex md-truncate>
+        <md-card-title>
+          <md-card-title-media>
+            <div class="md-media-sm card-media" layout>
+              <img src="{{user.picture}}" class="md-avatar" />
+            </div>
+          </md-card-title-media>
+          <md-card-title-text style="padding: 10px;" md-truncate>
+            <span class="md-headline">{{user.rank}}. {{ user.name }}</span>
+            <span class="md-subhead description">Points : {{user.score}}</span>
+          </md-card-title-text>
+        </md-card-title>
+      </md-card>
+      </div>
+  </md-content>
+  <p ng-if="vm.users.length === 0 && !vm.playerLoading">Aucun joueur trouvé</p>
+</md-content>

@@ -1,0 +1,214 @@
+<!doctype html>
+<html xmlns:og="http://ogp.me/ns#">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="Prono Football Club" />
+    <meta property="og:url" content="https://pronofc.kmt.orange.com/" />
+    <meta property="og:description" content="Viens parier entre amis et collègues" />
+    <meta property="og:image" content="https://pronofc.kmt.orange.com/images/logo2.b6ded92f.png" />
+    <meta property="og:site_name" content="Prono Football Club" />
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="bower_components/material-design-icons/iconfont/material-icons.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/index.css">
+    <!-- endbuild -->
+  </head>
+  <body
+    ng-app="pfcApp"
+    layout="row"
+    ng-cloak
+    ng-controller="MainController as ctrl">
+
+    <!--[if lte IE 8]>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+      your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <md-sidenav
+        ng-if="!ctrl.root.hideSideBar"
+        layout-fill
+        flex
+        layout="column"
+        md-colors="{background: 'primary-900'}"
+        class="md-sidenav-left md-whiteframe-z2 site-sidenav"
+        md-is-locked-open="$mdMedia('gt-md')"
+        md-component-id="left-side-nav">
+  
+          <md-content
+              md-colors="{background: 'primary-900'}"
+              layout-padding
+              flex>
+                <div style="witdh:100%" layout="row">
+                  <span flex></span>
+                  <md-button
+                      id="toggle-sidenav"
+                      class="md-icon-button"
+                      ng-click="ctrl.toggleSideNav()"
+                      hide-gt-md aria-label="Toggle Menu">
+                    <i class="material-icons">menu</i>
+                  </md-button>
+                </div>
+            <div class="header-sidenav" style="margin-bottom:20px;padding-top:0px;">
+              <a ng-href="#!/"><img src="images/logo.png" class="logo-img" ></a>
+              <h1 class="md-heading logo-title">Prono Football Club</h1>
+              <md-button style="color: white" class="md-accent" ng-click="ctrl.editProfile()"><md-icon class="material-icons" style="color:white;">settings</md-icon>&nbsp;&nbsp;<!--{{ctrl.root.user.name}}-->Mon profil</md-button>
+            </div>
+            <ul class="side-menu">
+                <li
+                    ng-repeat="section in ctrl.menu.sections"
+                    class="parent-list-item"
+                    ng-class="{'parentActive' : ctrl.isSectionSelected(section)}">
+                  <h2
+                      class="menu-heading"
+                      ng-if="section.type === 'heading'"
+                      id="heading_{{ section.name | nospace }}">
+                    {{section}}
+                  </h2>
+                  <menu-link
+                      section="section"
+                      ng-if="section.type === 'link'">
+                  </menu-link>
+                  <menu-toggle
+                      section="section"
+                      ng-if="section.type === 'toggle'">
+                  </menu-toggle>
+                </li>
+            </ul>
+          </md-content>
+  <!--<div style="padding:4px">
+    <img src="images/sib_blanc.png" alt="logo_sib" style="height:40px">
+  </div>-->
+</md-sidenav>
+
+<!-- Add your site or application content here -->
+    <md-sidenav
+        ng-if="ctrl.root.showTv"
+        layout-fill
+        flex
+        layout="column"
+        md-colors="{background: 'primary-900'}"
+        class="md-sidenav-left md-whiteframe-z2 site-sidenav-2"
+        md-is-locked-open="$mdMedia('gt-md')"
+        md-component-id="left-side-nav">
+  
+          <md-content
+              md-colors="{background: 'primary-900'}"
+              layout-padding
+              flex>
+                <div style="witdh:100%" layout="row">
+                  <span flex></span>
+                  <md-button
+                      id="toggle-sidenav"
+                      class="md-icon-button"
+                      ng-click="ctrl.toggleSideNav()"
+                      hide-gt-md aria-label="Toggle Menu">
+                    <i class="material-icons">menu</i>
+                  </md-button>
+                </div>
+            <div class="header-sidenav" style="margin-bottom:20px;padding-top:0px;">
+              <a ng-href="#!/"><img src="images/logo.png" class="logo-img"></a>
+              <h1 class="md-heading logo-title">Prono Football Club</h1>
+            </div>
+            <div class="header-sidenav" style="margin-top:40px;padding-top:0px;">
+              <h4 class="logo-title">Rejoins nous et viens défier tes collègues !</h4>
+              <div style="margin-top:200px;padding-top:0px;">
+                <a ng-href="#!/"><img src="images/code.png" class="logo-img"/></a>
+              </div>
+              <h4 >https://pronofc.kmt.orange.com</h4>
+            </div>
+          </md-content>
+</md-sidenav>
+
+<div id="screen" layout="column" flex>
+  <md-toolbar
+      class="md-whiteframe-2dp"
+      md-colors="{background: 'primary-100'}"
+      layout="row">
+    <div class="md-toolbar-tools">
+      <md-button
+        ng-if="!ctrl.root.hideSideBar"
+          id="toggle-menu"
+          class="md-icon-button"
+          ng-click="ctrl.toggleSideNav()"
+          hide-gt-md aria-label="Toggle Menu">
+        <i class="material-icons">menu</i>
+      </md-button>
+      <h1 md-truncate class="md-toolbar-item md-breadcrumb md-headline" md-colors="{color: 'primary-900'}" flex>
+          {{ctrl.root.toolBarName}}
+      </h1>
+      <!--<h1 class="md-toolbar-item md-breadcrumb md-headline" md-colors="{color: 'primary-900'}">
+        {{ctrl.applicationName}}
+      </h1>
+      <span flex></span>-->
+    </div>
+  </md-toolbar>
+
+  <md-content
+      md-scroll-y
+      layout="column"
+      flex>
+
+    <div
+      ng-view
+      layout-padding
+      style="padding-top:0px;"
+      flex="noshrink">
+    </div>
+  </md-content>
+
+</div>
+
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="app.js"></script>
+        <script src="services/authentication.service.js"></script>
+        <script src="services/user.service.js"></script>
+        <script src="services/menu.service.js"></script>
+        <script src="services/match.service.js"></script>
+        <script src="services/interceptor.service.js"></script>
+        <script src="services/common.service.js"></script>
+        <script type="text/javascript" src="directives/menulink.directive.js"></script>
+        <script src="directives/menu_toggle.directive.js"></script>
+        <script src="home_page/home_page.ctrl.js"></script>
+        <script src="home/home.ctrl.js"></script>
+        <script src="login/login.ctrl.js"></script>
+        <script src="register/register.ctrl.js"></script>
+        <script src="groups/groups.ctrl.js"></script>
+        <script src="ranking/ranking.ctrl.js"></script>
+        <script src="rules/rules.ctrl.js"></script>
+        <script src="teams/teams.ctrl.js"></script>
+        <script src="teams/team.ctrl.js"></script>
+        <script src="profile/profile.ctrl.js"></script>
+        <script src="tv/tv.ctrl.js"></script>
+        <!-- endbuild -->
+
+
+</body>
+</html>

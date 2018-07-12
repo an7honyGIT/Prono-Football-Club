@@ -1,0 +1,96 @@
+<md-dialog flex>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Score du match</h2>
+      <span flex></span>
+    </div>
+  </md-toolbar>
+  <md-content>
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="Parier">
+        <md-content>
+          <form ng-cloak>
+            <md-dialog-content>            
+              <div class="md-dialog-content" layout="column">
+                <p style="margin:0px"><b>Pronostic à la fin de la rencontre (temps réglementaire + prolongations) :</b></p>
+                <br/>
+                <div layout="column">
+                  <p style="margin:0px"><b>{{match.team1.name}} :</b></p>
+                  <md-input-container class="md-icon-float md-icon-right md-block">
+                    <input ng-model="team1" type="number" step="1" ng-change="winTeam = (team1>=team2)?'team1':'team2'">
+                  </md-input-container>
+                </div>
+
+                <div layout="column">
+                  <p style="margin:0px"><b>{{match.team2.name}} : </b></p>
+                  <md-input-container class="md-icon-float md-icon-right md-block">
+                    <input ng-model="team2" type="number" step="1" ng-change="winTeam = (team1>=team2)?'team1':'team2'">
+                  </md-input-container>
+                </div>
+
+                <p style="margin:0px"><b>Équipe gagnante à l'issu de la rencontre (en cas de tirs au but) :</b></p>
+                <br/>
+                <div layout="column">
+                  <md-radio-group ng-model="winTeam" layout="row">
+                    <md-radio-button value="team1" ng-disabled="team1<team2">{{match.team1.name}}</md-radio-button>
+                    <span flex></span>
+                    <md-radio-button value="team2" ng-disabled="team1>team2">{{match.team2.name}}</md-radio-button>
+                    <span flex></span>
+                  </md-radio-group>
+                </div>
+                <br/>
+              </div>
+
+
+            </md-dialog-content>
+
+            <md-dialog-actions layout="row">
+              <span flex></span>
+              <md-button ng-click="cancel()">
+               Annuler
+              </md-button>
+              <md-button class="md-accent"  ng-click="answer(true)">
+                Quitte ou Double
+              </md-button>
+              <md-button class="md-raised md-accent" ng-click="answer(false)">
+                Valider
+              </md-button>
+            </md-dialog-actions>
+          </form>
+        </md-content>
+      </md-tab>
+      <md-tab label="{{match.team1.name}}">
+        <md-content class="md-padding">
+          <div ng-if="matchTeam1Loading" layout="row" style="margin-top: 20px;width: 100%" layout-sm="column" layout-align="space-around" layout-align="center center" align="center" flex>
+              <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+          </div>
+          <md-list ng-if="!matchTeam1Loading" flex>
+            <md-list-item class="md-2-line" ng-repeat="match in matchTeam1">
+              <div class="md-list-item-text">
+                <h3>{{match.team1.name}} <b>{{match.score1}}</b> - <b>{{match.score2}}</b> {{match.team2.name}}</h3>
+              </div>
+              <md-divider ></md-divider>
+            </md-list-item>
+          </md-list>
+          <p ng-if="!matchTeam1Loading && matchTeam1.length==0">Aucun match trouvé</p>
+        </md-content>
+      </md-tab>
+      <md-tab label="{{match.team2.name}}">
+        <md-content class="md-padding">
+          <div ng-if="matchTeam2Loading" layout="row" style="margin-top: 20px;width: 100%" layout-sm="column" layout-align="space-around" layout-align="center center" align="center" flex>
+              <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+          </div>
+          <md-list ng-if="!matchTeam2Loading" flex>
+            <md-list-item class="md-2-line" ng-repeat="match in matchTeam2">
+              <div class="md-list-item-text">
+                <h3>{{match.team1.name}} <b>{{match.score1}}</b> - <b>{{match.score2}}</b> {{match.team2.name}}</h3>
+              </div>
+              <md-divider ></md-divider>
+            </md-list-item>
+          </md-list>
+          <p ng-if="!matchTeam2Loading && matchTeam2.length==0">Aucun match trouvé</p>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+</md-dialog>

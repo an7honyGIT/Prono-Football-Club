@@ -1,0 +1,15 @@
+<md-content class="md-padding" layout="column" layout-wrap flex>
+  <div ng-if="vm.dataLoading" layout="row" style="margin-top: 20px;" layout-sm="column" layout-align="space-around" align="center" flex>
+      <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+	<md-list ng-if="!vm.dataLoading" flex>
+    <md-list-item class="md-3-line md-long-text" ng-repeat="team in vm.teams | orderBy: 'name'" ng-click="vm.goToTeam(team.teamId)">
+      <img src="{{team.picture}}" class="md-avatar" />
+      <div class="md-list-item-text">
+        <h3>{{ team.name | uppercase }}</h3>
+      </div>
+      <md-divider ></md-divider>
+    </md-list-item>
+  </md-list>
+  <p ng-if="vm.teams.length === 0 && !vm.dataLoading">Aucune équipe trouvée</p>
+</md-content>

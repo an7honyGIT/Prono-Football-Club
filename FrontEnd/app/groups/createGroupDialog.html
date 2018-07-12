@@ -1,0 +1,48 @@
+<md-dialog flex>
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Créer un groupe</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <div layout="column">
+          <p style="margin:0px"><b>Nom du groupe :</b></p>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Nom</label>
+            <input required ng-model="group.name">
+          </md-input-container>
+        </div>
+
+        <div layout="column">
+          <p style="margin:0px"><b>URL de l'image</b></p>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Image</label>
+            <input ng-model="group.picture">
+          </md-input-container>
+        </div>
+
+        <div layout="column">
+          <p style="margin:0px"><b>Description</b></p>
+          <md-input-container class="md-block">
+            <label>Description</label>
+            <textarea ng-model="group.description" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+          </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()">
+       Annuler
+      </md-button>
+      <md-button ng-click="answer()" ng-disabled="group.name==='' || group.picture===''">
+        Valider
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

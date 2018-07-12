@@ -1,0 +1,36 @@
+<md-dialog flex>
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Pronostics des utilisateurs {{nbBets}}</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>     
+      <div class="md-dialog-content">
+        <div ng-if="loading" layout="row" style="margin-top: 20px;width: 100%" layout-sm="column" layout-align="space-around" layout-align="center center" align="center" flex>
+          <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+        </div>
+        <md-list ng-if="!loading && bets.length !== 0" flex>
+          <md-list-item class="md-2-line" ng-repeat="bet in bets">
+            <img src="{{bet.user[0].picture}}" class="md-avatar" />
+            <div class="md-list-item-text">
+              <h3><b>{{match.team1.name}} {{bet.score1}} - {{bet.score2}} {{match.team2.name}} <span style="color:green;" ng-if="bet.point>0">{{(bet.point!==-1 && bet.point!==0)?' ( +'+bet.point+' points )':''}}</span><span style="color:red;" ng-if="bet.point<0">{{(bet.point!==-1 && bet.point!==0)?' ( '+bet.point+' points )':''}}</span></b></h3>
+              <h3><i>{{bet.user[0].username}}</i></h3>
+            </div>
+            <md-divider ></md-divider>
+          </md-list-item>
+        </md-list>
+        <p ng-if="bets.length === 0 && !loading">Aucun pari trouvé</p>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="answer()">
+        OK
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
